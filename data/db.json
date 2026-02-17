@@ -1,0 +1,17 @@
+{
+  "messages": [],
+  "userSettings": [],
+  "onlineUsers": [],
+  "intimateScore": {
+    "user1_id": 1,
+    "user2_id": 2,
+    "score": 0
+  },
+  "relationship": {
+    "startDate": "2026-02-14",
+    "anniversaryText": "相恋"
+  },
+  "notificationSettings": {
+    "user2OnlineEmail": "19048320136@163.com"
+  }
+}

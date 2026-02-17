@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>聊天 - 在线聊天</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="chat-page">
+  <div id="heartContainer" class="heart-container"></div>
+  
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="server-name">💖 二人世界</div>
+      <div class="channels">
+      </div>
+      
+      <div class="user-panel">
+        <div class="user-list-title">在线用户</div>
+        <div id="userList" class="user-list"></div>
+      </div>
+      
+      <div class="intimate-score">
+        <div class="relationship-card love-days-card">
+          <div class="card-title">我们已经</div>
+          <div class="heart-background">
+            <div class="days-count" id="loveDays">0</div>
+            <div class="days-label">天</div>
+          </div>
+          <div class="anniversary-date" id="anniversaryDate">相恋纪念日</div>
+          <div class="date-info">
+            <div class="date-label">相恋日期</div>
+            <div class="date-value" id="startDateDisplay">-</div>
+          </div>
+        </div>
+        
+        <div class="relationship-card stats-card">
+          <div class="stats-title">我们的记录</div>
+          <div class="stats-container">
+            <div class="stat-item">
+              <div class="stat-label">聊天天数</div>
+              <div class="stat-value" id="chatDays">0</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">亲密值</div>
+              <div class="stat-value" id="scoreValue">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sidebar-footer">
+        <button id="settingsBtn" class="sidebar-btn">⚙️ 设置</button>
+        <button id="logoutBtn" class="sidebar-btn">🚪 退出</button>
+      </div>
+    </div>
+    
+    <div class="chat-area">
+      <div class="chat-header">
+        <div class="chat-title"></div>
+        <div id="onlineIndicator" class="online-indicator"></div>
+      </div>
+      
+      <div id="messagesContainer" class="messages-container">
+        <div id="messagesList" class="messages-list"></div>
+      </div>
+      
+      <div class="love-quote">
+        <span id="loveQuote" class="quote-text"></span>
+        <button id="sendQuoteBtn" class="quote-btn">💌 发送</button>
+      </div>
+      
+      <div class="input-area">
+        <div class="input-tools">
+          <button id="stickerBtn" class="tool-btn">😊 贴纸</button>
+          <button id="heartBtn" class="tool-btn heart-btn">💗 爱心</button>
+        </div>
+        
+        <div id="stickerPanel" class="sticker-panel hidden"></div>
+        
+        <form id="messageForm">
+          <textarea id="messageInput" placeholder="发送消息..." autocomplete="off" rows="1"></textarea>
+          <button type="submit">发送</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div id="notification" class="notification hidden"></div>
+  
+  <div id="imagePreview" class="image-preview hidden">
+    <span id="closePreview" class="close-preview">&times;</span>
+    <img id="previewImage" src="" alt="预览图片">
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html>

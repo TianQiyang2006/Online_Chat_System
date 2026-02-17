@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设置 - 在线聊天</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="settings-page">
+  <div class="settings-container">
+    <div class="settings-box">
+      <h1>⚙️ 设置</h1>
+      
+      <div class="form-group">
+        <label>头像</label>
+        <div class="avatar-preview">
+          <span id="currentAvatar" class="current-avatar">👤</span>
+          <button type="button" id="toggleAvatarBtn" class="toggle-btn">选择头像</button>
+        </div>
+        <div id="avatarPicker" class="avatar-picker hidden"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="displayName">显示名称</label>
+        <input type="text" id="displayName" placeholder="输入显示名称...">
+      </div>
+      
+      <div class="form-group">
+        <label for="bgUrl">聊天背景图片 URL</label>
+        <input type="text" id="bgUrl" placeholder="输入图片链接...">
+        <p class="hint">留空则使用默认背景</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="loginUsername">登录用户名</label>
+        <input type="text" id="loginUsername" placeholder="输入登录用户名...">
+      </div>
+      
+      <div class="form-group">
+        <label for="loginPassword">登录密码</label>
+        <input type="password" id="loginPassword" placeholder="输入登录密码...">
+      </div>
+      
+      <div class="button-group">
+        <button id="saveBtn" class="save-btn">保存设置</button>
+        <button id="backBtn" class="back-btn">返回聊天</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

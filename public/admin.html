@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理员面板 - 在线聊天</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+  <div class="admin-wrapper">
+    <div class="admin-sidebar">
+      <div class="admin-brand">
+        <h1>💖 聊天后台</h1>
+      </div>
+      <nav class="admin-nav">
+        <a href="#" class="nav-item active">
+          <span class="nav-icon">👥</span>
+          <span>用户管理</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="admin-content">
+      <div class="admin-header">
+        <h2>用户管理</h2>
+        <div class="header-actions">
+          <button id="backBtn" class="btn-secondary">返回聊天</button>
+        </div>
+      </div>
+
+      <div class="admin-body">
+        <div class="notice" id="notice" style="display: none;"></div>
+        
+        <div class="users-list" style="margin-bottom: 24px;">
+          <div class="user-card">
+            <div class="user-card-header">
+              <div class="user-avatar">💕</div>
+              <div>
+                <div class="user-title">关系设置</div>
+                <div class="user-role">相恋纪念日配置</div>
+              </div>
+            </div>
+            <div class="user-card-body">
+              <div class="form-group">
+                <label>相恋日期</label>
+                <input type="date" id="relationship-startDate">
+              </div>
+              <div class="form-group">
+                <label>纪念文本</label>
+                <input type="text" id="relationship-anniversaryText" placeholder="例如：相恋、在一起等">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="users-list" style="margin-bottom: 24px;">
+          <div class="user-card">
+            <div class="user-card-header">
+              <div class="user-avatar">📧</div>
+              <div>
+                <div class="user-title">上线通知</div>
+                <div class="user-role">女朋友上线邮件提醒</div>
+              </div>
+            </div>
+            <div class="user-card-body">
+              <div class="form-group">
+                <label>上线通知邮箱</label>
+                <input type="email" id="user2OnlineEmail" placeholder="例如：your-email@qq.com">
+                <p class="hint" style="margin-top: 8px;">留空则不发送上线通知邮件</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="users-list">
+          <div id="usersContainer"></div>
+        </div>
+
+        <div class="save-section">
+          <button id="saveUsersBtn" class="btn-primary">保存更改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

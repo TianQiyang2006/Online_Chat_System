@@ -1,0 +1,18 @@
+{
+  "name": "online-chat",
+  "version": "1.0.0",
+  "description": "在线聊天网页",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "lowdb": "^6.0.1",
+    "marked": "^17.0.2",
+    "nodemailer": "^6.9.7"
+  }
+}
