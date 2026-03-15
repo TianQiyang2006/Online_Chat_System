@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>聊天 - 在线聊天</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="chat-page">
   <div id="heartContainer" class="heart-container"></div>
+  <button id="sidebarToggle" class="sidebar-toggle" aria-label="切换侧边栏">☰</button>
+  <div id="mobileOverlay" class="mobile-overlay"></div>
   
   <div class="app-container">
     <div class="sidebar">
@@ -94,6 +96,6 @@
     <img id="previewImage" src="" alt="预览图片">
   </div>
   
-  <script src="app.js"></script>
+  <script defer src="app.js"></script>
 </body>
 </html>
