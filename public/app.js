@@ -11,6 +11,8 @@ let firstMessageTime = null;
 let lastHeartAnimationTimestamp = 0;
 let isFirstLoad = true;
 let hasNewMessage = false;
+let pollTimers = [];
+let markdownReady = false;
 
 const avatarOptions = [
   '👨', '👩', '🧑', '👦', '👧', '🧒', '👶', '🧔', '👱', '👴',
@@ -99,6 +101,9 @@ function initLoginPage() {
 }
 
 async function initChatPage() {
+  clearPollTimers();
+  setupChatUi();
+  initMarkedWhenReady();
   await loadConfig();
   loadUserSettings();
   renderUserList();
@@ -107,10 +112,10 @@ async function initChatPage() {
   renderStickers();
   updateIntimateScore();
 
-  setInterval(() => fetch('/api/heartbeat', { method: 'POST' }), 60000);
-  setInterval(loadMessages, 3000);
-  setInterval(checkOnlineStatus, 5000);
-  setInterval(checkHeartAnimation, 1000);
+  pollTimers.push(setInterval(() => fetch('/api/heartbeat', { method: 'POST' }), 60000));
+  pollTimers.push(setInterval(loadMessages, 3000));
+  pollTimers.push(setInterval(checkOnlineStatus, 5000));
+  pollTimers.push(setInterval(checkHeartAnimation, 1000));
 
   const messageForm = document.getElementById('messageForm');
   messageForm.addEventListener('submit', sendMessage);
@@ -138,6 +143,58 @@ async function initChatPage() {
       sendMessageText(quote);
     }
   });
+
+  window.addEventListener('beforeunload', clearPollTimers);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      loadMessages();
+      checkOnlineStatus();
+    }
+  });
+}
+
+function setupChatUi() {
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('mobileOverlay');
+
+  if (!sidebarToggle || !sidebar || !overlay) return;
+
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+  });
+}
+
+function initMarkedWhenReady() {
+  if (markdownReady) return;
+  if (typeof marked === 'undefined') return;
+
+  markdownReady = true;
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+    mangle: false,
+    headerIds: false
+  });
+}
+
+function clearPollTimers() {
+  pollTimers.forEach(timer => clearInterval(timer));
+  pollTimers = [];
 }
 
 async function loadConfig() {
@@ -183,6 +240,8 @@ function renderUserList() {
 }
 
 async function loadMessages() {
+  if (document.hidden) return;
+
   try {
     const res = await fetch('/api/messages');
     const newMessages = await res.json();
@@ -289,9 +348,9 @@ function renderMessages() {
 }
 
 function scrollToBottom() {
-  const messagesList = document.getElementById('messagesList');
-  if (messagesList) {
-    messagesList.scrollTop = messagesList.scrollHeight;
+  const messagesContainer = document.getElementById('messagesContainer');
+  if (messagesContainer) {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 }
 
@@ -806,13 +865,6 @@ function escapeHtml(text) {
 function renderMarkdown(text) {
   if (typeof marked !== 'undefined') {
     try {
-      marked.setOptions({
-        breaks: true,
-        gfm: true,
-        mangle: false,
-        headerIds: false
-      });
-      
       let html = marked.parse(text);
       
       html = html.replace(/<img([^>]*)>/g, function(match, attrs) {
