@@ -12,7 +12,7 @@ let lastHeartAnimationTimestamp = 0;
 let isFirstLoad = true;
 let hasNewMessage = false;
 let pollTimers = [];
-let markdownReady = typeof marked !== 'undefined';
+let markdownReady = false;
 
 const avatarOptions = [
   '👨', '👩', '🧑', '👦', '👧', '🧒', '👶', '🧔', '👱', '👴',
@@ -101,6 +101,7 @@ function initLoginPage() {
 }
 
 async function initChatPage() {
+  clearPollTimers();
   setupChatUi();
   initMarkedWhenReady();
   await loadConfig();
@@ -179,7 +180,8 @@ function setupChatUi() {
 }
 
 function initMarkedWhenReady() {
-  if (markdownReady || typeof marked === 'undefined') return;
+  if (markdownReady) return;
+  if (typeof marked === 'undefined') return;
 
   markdownReady = true;
   marked.setOptions({
